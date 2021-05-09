@@ -1,10 +1,10 @@
 package com.medical.medicalreport
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 
 
 class SplashScreen : AppCompatActivity() {
@@ -17,10 +17,19 @@ class SplashScreen : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         Handler().postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            if (!alreadyLoggedIn()) {
+                val intent = Intent(this@SplashScreen, LoginActivity::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this@SplashScreen, MainActivity::class.java)
+                startActivity(intent)
+            }
             finish()
         }, 2000) // 3000 is the delayed time in milliseconds.
+    }
+
+    private fun alreadyLoggedIn(): Boolean {
+        return false
     }
 }
 
