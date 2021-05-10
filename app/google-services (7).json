@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "371922288042",
+    "project_id": "medicalreport-f9e9a",
+    "storage_bucket": "medicalreport-f9e9a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371922288042:android:36979608ed64847f723fd3",
+        "android_client_info": {
+          "package_name": "com.medical.medicalreport"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371922288042-k79tqqvi558mtfeof6m5ji8qklc4chgk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQqT7jYWJoDfJ8gIl1DRBepZT-WF-ignk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371922288042-k79tqqvi558mtfeof6m5ji8qklc4chgk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
