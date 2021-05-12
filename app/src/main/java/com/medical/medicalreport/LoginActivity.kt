@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -66,7 +67,12 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    fun signup(view: View) {
 
     }
-}}
+
+    fun signup(view: View) {
+        val intent = Intent(this,SignUp::class.java)
+        startActivity(intent)
+    }
+}
+
