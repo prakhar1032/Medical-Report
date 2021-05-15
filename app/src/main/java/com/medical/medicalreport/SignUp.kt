@@ -43,6 +43,7 @@ class SignUp : AppCompatActivity() {
         val repassword = conform_password?.text.toString().trim()
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(repassword)) {
             Toast.makeText(this, " This field cannot be empty", Toast.LENGTH_SHORT).show()
+
         }else if(!(password==repassword)){
            Toast.makeText(this, "Password did'nt match", Toast.LENGTH_SHORT).show()
         }
@@ -53,7 +54,29 @@ class SignUp : AppCompatActivity() {
                     if (task.isSuccessful) {
 
                         Toast.makeText(applicationContext, "Account Created", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this@SignUp,MainActivity::class.java))
+
+                        var user :FirebaseUser = firebaseAuth!!.currentUser!!
+                        user.sendEmailVerification().addOnCompleteListener(object : OnCompleteListener<Void> {
+                            override fun onComplete(task: Task<Void>) {
+                       if(task.isSuccessful) {
+                           Toast.makeText(
+                               applicationContext,
+                               "Check Your Email",
+                               Toast.LENGTH_SHORT
+                           ).show()
+                           startActivity(Intent(this@SignUp, LoginActivity::class.java))
+
+
+                       }
+                        else{
+                            val error = task.exception?.message
+                           Toast.makeText(applicationContext, "Error $error", Toast.LENGTH_SHORT).show()
+
+                       }
+                            }
+
+                        })
+
                     }
                     else{
                         val error = task.exception?.message

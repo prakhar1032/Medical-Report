@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 private var Login_Button: Button?=null
 private var SignIn_Button:Button?=null
@@ -40,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun LoginUser() {
+    fun LoginUser()  {
         var email_text = user_email?.text.toString()
         var password_text = user_password?.text.toString()
   if(TextUtils.isEmpty(email_text) || TextUtils.isEmpty(password_text)){
@@ -51,8 +52,18 @@ class LoginActivity : AppCompatActivity() {
             override fun onComplete(task: Task<AuthResult>) {
                 if (task.isSuccessful) {
 
-                    Toast.makeText(applicationContext, "Login Successfully", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+
+
+                val user : FirebaseUser = firebaseAuth?.currentUser!!
+                    if(user.isEmailVerified){
+                        Toast.makeText(applicationContext, "Login Successfully", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+
+                    }
+                else{
+                        Toast.makeText(applicationContext, "Account Not Verified", Toast.LENGTH_SHORT).show()
+
+                    }
                 }
                 else{
                     val error = task.exception?.message
