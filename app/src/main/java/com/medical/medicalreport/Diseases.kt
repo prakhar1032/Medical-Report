@@ -23,20 +23,20 @@ class Diseases : AppCompatActivity() {
 //    var disease_3_name: EditText? = null
 //    var update_btn: Button? = null
 //    var firebaseAuth: FirebaseAuth? = null
-//    var firebaseDatabase: DatabaseReference?
+//    var firebaseDatabase: DatabaseReference? = null
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_diseases)
+
 //        disease_name = findViewById(R.id.disease_name)
 //        disease_2_name = findViewById(R.id.disease_2name)
 //        disease_3_name = findViewById(R.id.disease_3name)
 //        update_btn = findViewById(R.id.disease_info)
 //        firebaseAuth = FirebaseAuth.getInstance()
 //        firebaseDatabase = FirebaseDatabase.getInstance().reference.child("Users")
-//            .child(firebaseAuth?.currentUser!!.uid)= null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_diseases)
-
-//
+//            .child(firebaseAuth?.currentUser!!.uid)
 
 
 
@@ -85,6 +85,8 @@ class Diseases : AppCompatActivity() {
 //        }
 //
 //    }
+
+
 
 
 }

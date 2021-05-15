@@ -29,6 +29,7 @@
         android:id="@+id/diseases"
         android:layout_width="183dp"
         android:layout_height="200dp"
+        android:onClick="diseases"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
