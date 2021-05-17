@@ -58,7 +58,6 @@
             android:layout_marginLeft="45dp"
             android:backgroundTint="#ff1a1a"
             android:text="Update"
-
             android:textColor="@color/black"
             app:cornerRadius="18dp"
             tools:ignore="MissingConstraints" />
