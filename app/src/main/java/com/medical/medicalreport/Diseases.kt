@@ -38,7 +38,10 @@ class Diseases : AppCompatActivity() {
         firebaseDatabase = FirebaseDatabase.getInstance().reference.child("Users")
             .child(firebaseAuth?.currentUser!!.uid)
 
+        update_btn?.setOnClickListener {
 
+            SaveUserInfo()
+        }
 
     }
 
@@ -49,38 +52,48 @@ class Diseases : AppCompatActivity() {
         val seconddisease = disease_2_name?.text.toString().trim()
         val thirddisease = disease_3_name?.text.toString().trim()
 
-        if (TextUtils.isEmpty(firstdisease)){
-            Toast.makeText(applicationContext,"Please Enter something in this Field",Toast.LENGTH_SHORT).show()
-        }
+        if (TextUtils.isEmpty(firstdisease)) {
+            Toast.makeText(
+                applicationContext,
+                "Please Enter something in this Field",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (TextUtils.isEmpty(seconddisease)) {
+            Toast.makeText(
+                applicationContext,
+                "Please Enter something in this Field",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (TextUtils.isEmpty(thirddisease)) {
+            Toast.makeText(
+                applicationContext,
+                "Please Enter something in this Field",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            val userinfo = HashMap<String, Any>()
+            userinfo.put("firstDisease", firstdisease)
+            userinfo.put("secondDisease", seconddisease)
+            userinfo.put("thirdDisease", thirddisease)
 
-        else if (TextUtils.isEmpty(seconddisease)){
-            Toast.makeText(applicationContext,"Please Enter something in this Field",Toast.LENGTH_SHORT).show()
-        }
+            firebaseDatabase?.updateChildren(userinfo)
+                ?.addOnCompleteListener(object : OnCompleteListener<Void> {
+                    override fun onComplete(task: Task<Void>) {
 
-        else if (TextUtils.isEmpty(thirddisease)){
-            Toast.makeText(applicationContext,"Please Enter something in this Field",Toast.LENGTH_SHORT).show()
-        }
-
-        else {
-            val userinfo  = HashMap<String,Any>()
-            userinfo.put("firtDisease",firstdisease)
-            userinfo.put("secondDisease",seconddisease)
-            userinfo.put("thirdDisease",thirddisease)
-
-            firebaseDatabase?.updateChildren(userinfo)?.addOnCompleteListener(object : OnCompleteListener<Void>{
-                override fun onComplete(task: Task<Void>) {
-
-                    if (task.isSuccessful){
-                        Toast.makeText(applicationContext,"Your information is updated",Toast.LENGTH_SHORT).show()
+                        if (task.isSuccessful) {
+                            Toast.makeText(
+                                applicationContext,
+                                "Your information is updated",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            val error = task.exception?.message
+                            Toast.makeText(applicationContext, "Error" + error, Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     }
 
-                    else {
-                        val error = task.exception?.message
-                        Toast.makeText(applicationContext,"Error" +error,Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-            })
+                })
 
         }
 
