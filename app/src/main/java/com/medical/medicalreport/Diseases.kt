@@ -76,7 +76,9 @@ class Diseases : AppCompatActivity() {
             userinfo.put("secondDisease", seconddisease)
             userinfo.put("thirdDisease", thirddisease)
 
-            firebaseDatabase?.updateChildren(userinfo)
+
+
+            firebaseDatabase?.push()?.setValue(userinfo)
                 ?.addOnCompleteListener(object : OnCompleteListener<Void> {
                     override fun onComplete(task: Task<Void>) {
 
