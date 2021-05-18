@@ -18,7 +18,8 @@ class MainActivity : AppCompatActivity() {
 
 
     fun medicalreport(view: View) {
-
+        val intent = Intent(this,MedicalReport::class.java)
+        startActivity(intent)
     }
 
     fun diseases(view: View) {

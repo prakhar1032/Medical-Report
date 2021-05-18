@@ -28,28 +28,30 @@
             android:id="@+id/disease_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="40dp"
+            android:layout_margin="20dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="disease_name" />
+            android:hint="Enter Title" />
 
         <EditText
             android:id="@+id/disease_2name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="40dp"
+            android:layout_margin="20dp"
+            android:layout_height="140dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="disease_2name" />
+            android:gravity="start|top"
+            android:hint="Disease Description"
+            android:inputType="textMultiLine" />
 
         <EditText
             android:id="@+id/disease_3name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="40dp"
+            android:layout_height="140dp"
+            android:layout_margin="20dp"
+            android:gravity="start|top"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="disease_3name" />
+            android:hint="Disease Cause"
+            android:inputType="textMultiLine" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/disease_info"
@@ -61,6 +63,8 @@
             android:textColor="@color/black"
             app:cornerRadius="18dp"
             tools:ignore="MissingConstraints" />
+
+
 
     </LinearLayout>
 
