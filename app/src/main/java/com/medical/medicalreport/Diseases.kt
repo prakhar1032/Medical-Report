@@ -1,5 +1,6 @@
 package com.medical.medicalreport
 
+import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -33,7 +34,7 @@ class Diseases : AppCompatActivity() {
         disease_name = findViewById(R.id.disease_name)
         disease_2_name = findViewById(R.id.disease_2name)
         disease_3_name = findViewById(R.id.disease_3name)
-        update_btn = findViewById(R.id.disease_info)
+        update_btn = findViewById(R.id.disease_upload)
         firebaseAuth = FirebaseAuth.getInstance()
         firebaseDatabase = FirebaseDatabase.getInstance().reference.child("Users")
             .child(firebaseAuth?.currentUser!!.uid)
@@ -99,5 +100,10 @@ class Diseases : AppCompatActivity() {
 
         }
 
+    }
+
+    fun diseaseinfo(view: View) {
+        val intent = Intent(this,Disease_info::class.java)
+        startActivity(intent)
     }
 }

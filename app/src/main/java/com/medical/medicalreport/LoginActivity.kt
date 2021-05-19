@@ -16,11 +16,11 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
-private var Login_Button: Button?=null
-private var SignIn_Button:Button?=null
-private var user_email:EditText?=null
-private var user_password:EditText?=null
-private var firebaseAuth:FirebaseAuth?=null
+private var Login_Button: Button? = null
+private var SignIn_Button: Button? = null
+private var user_email: EditText? = null
+private var user_password: EditText? = null
+private var firebaseAuth: FirebaseAuth? = null
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         SignIn_Button = findViewById<Button>(R.id.signup)
         user_email = findViewById<EditText>(R.id.editTextTextEmailAddress)
         user_password = findViewById<EditText>(R.id.editTextTextPassword)
-        firebaseAuth= FirebaseAuth.getInstance()
+        firebaseAuth = FirebaseAuth.getInstance()
 
 
     }
@@ -41,48 +41,54 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    fun LoginUser()  {
+    fun LoginUser() {
         var email_text = user_email?.text.toString()
         var password_text = user_password?.text.toString()
-  if(TextUtils.isEmpty(email_text) || TextUtils.isEmpty(password_text)){
-      Toast.makeText(this," This field cannot be empty",Toast.LENGTH_SHORT).show()
-  }
-    else{
-        firebaseAuth?.signInWithEmailAndPassword(email_text,password_text)?.addOnCompleteListener(object : OnCompleteListener<AuthResult> {
-            override fun onComplete(task: Task<AuthResult>) {
-                if (task.isSuccessful) {
+        if (TextUtils.isEmpty(email_text) || TextUtils.isEmpty(password_text)) {
+            Toast.makeText(this, " This field cannot be empty", Toast.LENGTH_SHORT).show()
+        } else {
+            firebaseAuth?.signInWithEmailAndPassword(email_text, password_text)
+                ?.addOnCompleteListener(object : OnCompleteListener<AuthResult> {
+                    override fun onComplete(task: Task<AuthResult>) {
+                        if (task.isSuccessful) {
 
 
+                            val user: FirebaseUser = firebaseAuth?.currentUser!!
+                            if (user.isEmailVerified) {
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Login Successfully",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
 
-                val user : FirebaseUser = firebaseAuth?.currentUser!!
-                    if(user.isEmailVerified){
-                        Toast.makeText(applicationContext, "Login Successfully", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+                            } else {
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Account Not Verified",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                            }
+                        } else {
+                            val error = task.exception?.message
+                            Toast.makeText(applicationContext, "Error! $error", Toast.LENGTH_SHORT)
+                                .show()
+                        }
 
                     }
-                else{
-                        Toast.makeText(applicationContext, "Account Not Verified", Toast.LENGTH_SHORT).show()
-
-                    }
-                }
-                else{
-                    val error = task.exception?.message
-                    Toast.makeText(applicationContext, "Error! $error", Toast.LENGTH_SHORT).show()
-                }
-
-            }
 
 
-        })
+                })
 
 
-    }
+        }
 
 
     }
 
     fun signup(view: View) {
-        val intent = Intent(this,SignUp::class.java)
+        val intent = Intent(this, SignUp::class.java)
         startActivity(intent)
     }
 }

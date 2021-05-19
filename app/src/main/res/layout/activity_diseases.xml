@@ -54,15 +54,25 @@
             android:inputType="textMultiLine" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/disease_info"
+            android:id="@+id/disease_upload"
             android:layout_width="333dp"
             android:layout_height="53dp"
             android:layout_marginLeft="45dp"
             android:backgroundTint="#ff1a1a"
             android:text="Update"
             android:textColor="@color/black"
-            app:cornerRadius="18dp"
-            tools:ignore="MissingConstraints" />
+            app:cornerRadius="18dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/disease_info"
+            android:onClick="diseaseinfo"
+            android:layout_width="333dp"
+            android:layout_height="53dp"
+            android:layout_marginLeft="45dp"
+            android:backgroundTint="#ff1a1a"
+            android:text="Disease Info"
+            android:textColor="@color/black"
+            app:cornerRadius="18dp" />
 
 
 
