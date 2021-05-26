@@ -49,23 +49,23 @@ class Diseases : AppCompatActivity() {
     private fun SaveUserInfo() {
 
 
-        val firstdisease = disease_name?.text.toString().trim()
-        val seconddisease = disease_2_name?.text.toString().trim()
-        val thirddisease = disease_3_name?.text.toString().trim()
+        val Entertitle = disease_name?.text.toString().trim()
+        val Diseasedescription = disease_2_name?.text.toString().trim()
+        val Diseasecause = disease_3_name?.text.toString().trim()
 
-        if (TextUtils.isEmpty(firstdisease)) {
+        if (TextUtils.isEmpty(Entertitle)) {
             Toast.makeText(
                 applicationContext,
                 "Please Enter something in this Field",
                 Toast.LENGTH_SHORT
             ).show()
-        } else if (TextUtils.isEmpty(seconddisease)) {
+        } else if (TextUtils.isEmpty(Diseasedescription)) {
             Toast.makeText(
                 applicationContext,
                 "Please Enter something in this Field",
                 Toast.LENGTH_SHORT
             ).show()
-        } else if (TextUtils.isEmpty(thirddisease)) {
+        } else if (TextUtils.isEmpty(Diseasecause)) {
             Toast.makeText(
                 applicationContext,
                 "Please Enter something in this Field",
@@ -73,9 +73,9 @@ class Diseases : AppCompatActivity() {
             ).show()
         } else {
             val userinfo = HashMap<String, Any>()
-            userinfo.put("firstDisease", firstdisease)
-            userinfo.put("secondDisease", seconddisease)
-            userinfo.put("thirdDisease", thirddisease)
+            userinfo.put("EnterTitle", Entertitle)
+            userinfo.put("DiseaseDescription", Diseasedescription)
+            userinfo.put("DiseaseCause", Diseasecause)
 
 
 
