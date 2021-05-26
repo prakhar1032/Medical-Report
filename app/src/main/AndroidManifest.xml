@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.medical.medicalreport">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MedicalReport">
+        <activity
+            android:name=".pdfView"
+            android:label="@string/title_activity_pdf_view"
+            android:theme="@style/Theme.MedicalReport.NoActionBar"></activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignUp" />
         <activity android:name=".SplashScreen">
@@ -18,16 +25,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity android:name=".MainActivity" />
         <activity android:name=".Diseases" />
         <activity android:name=".DoctorVisit" />
         <activity android:name=".MedicalReport" />
         <activity android:name=".Medication" />
         <activity android:name=".Disease_info" />
-
-
     </application>
 
 </manifest>

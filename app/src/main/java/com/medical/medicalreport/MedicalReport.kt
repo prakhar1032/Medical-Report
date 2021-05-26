@@ -7,14 +7,16 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 
 class MedicalReport : AppCompatActivity() {
+
+
     val uriTxt: TextView? = null
     val PDF: Int = 0
     val DOCX: Int = 1
@@ -26,7 +28,7 @@ class MedicalReport : AppCompatActivity() {
         setContentView(R.layout.activity_medical_report)
 
         val upload_pdf = findViewById<Button>(R.id.upload_pdf)
-        val upload_docx = findViewById<Button>(R.id.upload_docx)
+
         mStorage = FirebaseStorage.getInstance().getReference("Uploads")
         upload_pdf.setOnClickListener {
             val intent = Intent()
@@ -35,12 +37,6 @@ class MedicalReport : AppCompatActivity() {
             startActivityForResult(Intent.createChooser(intent, "Select PDF"), PDF)
 
         }
-        upload_docx.setOnClickListener { view: View? ->
-            val intent = Intent()
-            intent.setType("docx/*")
-            intent.setAction(Intent.ACTION_GET_CONTENT)
-            startActivityForResult(Intent.createChooser(intent, "Select DOCX"), DOCX)
-        }
 
     }
 
@@ -48,10 +44,6 @@ class MedicalReport : AppCompatActivity() {
 
         if (resultCode == RESULT_OK) {
             if (requestCode == PDF) {
-                uri = data!!.data!!
-                uriTxt?.text = uri.toString()
-                upload()
-            } else if (requestCode == DOCX) {
                 uri = data!!.data!!
                 uriTxt?.text = uri.toString()
                 upload()
@@ -74,5 +66,7 @@ class MedicalReport : AppCompatActivity() {
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
         }
     }
+
+
 }
 
