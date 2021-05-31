@@ -23,9 +23,10 @@ class Diseases : AppCompatActivity() {
     var disease_2_name: EditText? = null
     var disease_3_name: EditText? = null
     var update_btn: Button? = null
+
     var firebaseAuth: FirebaseAuth? = null
     var firebaseDatabase: DatabaseReference? = null
-
+    var database:FirebaseDatabase?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,73 +35,91 @@ class Diseases : AppCompatActivity() {
         disease_name = findViewById(R.id.disease_name)
         disease_2_name = findViewById(R.id.disease_2name)
         disease_3_name = findViewById(R.id.disease_3name)
+
         update_btn = findViewById(R.id.disease_upload)
         firebaseAuth = FirebaseAuth.getInstance()
-        firebaseDatabase = FirebaseDatabase.getInstance().reference.child("Users")
-            .child(firebaseAuth?.currentUser!!.uid)
+
+
+        database = FirebaseDatabase.getInstance()
+        firebaseDatabase = database?.getReference("USER")
 
         update_btn?.setOnClickListener {
 
-            SaveUserInfo()
+            saveData()
         }
 
     }
 
-    private fun SaveUserInfo() {
-
-
-        val Entertitle = disease_name?.text.toString().trim()
-        val Diseasedescription = disease_2_name?.text.toString().trim()
-        val Diseasecause = disease_3_name?.text.toString().trim()
-
-        if (TextUtils.isEmpty(Entertitle)) {
-            Toast.makeText(
-                applicationContext,
-                "Please Enter something in this Field",
-                Toast.LENGTH_SHORT
-            ).show()
-        } else if (TextUtils.isEmpty(Diseasedescription)) {
-            Toast.makeText(
-                applicationContext,
-                "Please Enter something in this Field",
-                Toast.LENGTH_SHORT
-            ).show()
-        } else if (TextUtils.isEmpty(Diseasecause)) {
-            Toast.makeText(
-                applicationContext,
-                "Please Enter something in this Field",
-                Toast.LENGTH_SHORT
-            ).show()
-        } else {
-            val userinfo = HashMap<String, Any>()
-            userinfo.put("EnterTitle", Entertitle)
-            userinfo.put("DiseaseDescription", Diseasedescription)
-            userinfo.put("DiseaseCause", Diseasecause)
-
-
-
-            firebaseDatabase?.push()?.setValue(userinfo)
-                ?.addOnCompleteListener(object : OnCompleteListener<Void> {
-                    override fun onComplete(task: Task<Void>) {
-
-                        if (task.isSuccessful) {
-                            Toast.makeText(
-                                applicationContext,
-                                "Your information is updated",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        } else {
-                            val error = task.exception?.message
-                            Toast.makeText(applicationContext, "Error" + error, Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                    }
-
-                })
-
-        }
-
+fun saveData(){
+    val Entertitle = disease_name?.text.toString().trim()
+    val Diseasedescription = disease_2_name?.text.toString().trim()
+    val Diseasecause = disease_3_name?.text.toString().trim()
+    if(Entertitle.isNotEmpty() && Diseasedescription.isNotEmpty() && Diseasecause.isNotEmpty()){
+        var model=DiseaseClass(Entertitle,Diseasedescription,Diseasecause)
+        var id = firebaseDatabase?.push()?.key
+        firebaseDatabase?.child(id!!)?.setValue(model)
+      Toast.makeText(applicationContext,"Successfully Uploaded",Toast.LENGTH_SHORT).show()
+        disease_name?.setText("")
+        disease_2_name?.setText("")
+        disease_3_name?.setText("")
     }
+
+}
+//    private fun SaveUserInfo() {
+//
+//
+//
+//
+//        if (TextUtils.isEmpty(Entertitle)) {
+//            Toast.makeText(
+//                applicationContext,
+//                "Please Enter something in this Field",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        } else if (TextUtils.isEmpty(Diseasedescription)) {
+//            Toast.makeText(
+//                applicationContext,
+//                "Please Enter something in this Field",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        } else if (TextUtils.isEmpty(Diseasecause)) {
+//            Toast.makeText(
+//                applicationContext,
+//                "Please Enter something in this Field",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        } else {
+//            val userinfo = HashMap<String, Any>()
+//            userinfo.put("EnterTitle", Entertitle)
+//            userinfo.put("DiseaseDescription", Diseasedescription)
+//            userinfo.put("DiseaseCause", Diseasecause)
+//
+//             disease_name?.setText("")
+//             disease_2_name?.setText("")
+//             disease_3_name?.setText("")
+//
+//            firebaseDatabase?.push()?.setValue(userinfo)
+//                ?.addOnCompleteListener(object : OnCompleteListener<Void> {
+//                    override fun onComplete(task: Task<Void>) {
+//
+//                        if (task.isSuccessful) {
+//                            Toast.makeText(
+//                                applicationContext,
+//                                "Your information is updated",
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                        } else {
+//                            val error = task.exception?.message
+//                            Toast.makeText(applicationContext, "Error" + error, Toast.LENGTH_SHORT)
+//                                .show()
+//                        }
+//                    }
+//
+//                })
+//
+//        }
+//
+//    }
 
     fun diseaseinfo(view: View) {
         val intent = Intent(this,Disease_info::class.java)
